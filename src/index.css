@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* --font-sans: "Poppins", sans-serif; */
+  --font-sans: "Roboto", sans-serif;
+  --font-secondary: "Alfa Slab One", serif;
+  --color-primary: #7c4c35; /* Principal: Botones CTA, iconos, énfasis */
+  --color-accent: #ffb703; /* Acento: Etiquetas, badges, resaltar sin competir */
+  --color-background: #ffd5a6; /* Fondo principal: Lienzo general de la página */
+  --color-secondary: #daae86; /* Secundario: Fondos de footer/header (alto contraste) */
+
+  --color-foreground: #61200d; /* Texto principal: Párrafos y títulos */
+  --color-foreground-light: #6e402b; /* Texto principal: Párrafos y títulos */
+  --color-muted: #c08e60; /* Apagado: Bordes, texto secundario, placeholders */
+
+  /* Animación personalizada: Flotar y Girar */
+  --animate-float: float 5s ease-in-out infinite;
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) rotate(12deg);
+    }
+    50% {
+      transform: translateY(-15px) rotate(16deg);
+    }
+  }
+}
+
+@layer base {
+  .example{
+    color:#7c4c35;/*primary*/
+    color:#ffb703;/*accent*/
+    color:#ffd5a6;/*background*/
+    color:#7c4c35;/*secondary*/
+    color:#6e402b;/*foreground*/
+    color:#c08e60;/*muted*/
+  }
+  html{
+    scroll-behavior: smooth;
+  }
+  body {
+    
+    @apply bg-background text-foreground antialiased;
+    overflow-x: hidden;
+  }
+  h1 {
+    @apply text-6xl font-bold;
+  }
+  h2 {
+    @apply text-5xl uppercase mb-6 font-black;
+  }
+  h3 {
+    @apply text-2xl mb-3 font-bold;
+  }
+  p {
+    @apply mb-5;
+  }
+  p:last-child {
+    @apply mb-0;
+  }
+}
+
