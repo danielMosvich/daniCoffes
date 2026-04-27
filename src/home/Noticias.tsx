@@ -4,7 +4,7 @@
 
 export default function Noticias() {
   return (
-    <section className="bg-orange-50" id="news">
+    <section className="" id="news">
       <div className="max-w-7xl mx-auto px-3 py-20 grid grid-cols-1 lg:grid-cols-2">
         <div className="flex flex-col justify-center p-10 md:p-16 bg-rose-400 backdrop-blur-sm rounded-3xl shadow-2xl lg:mr-[-50px] z-10 relative">
           <span className="text-rose-200 uppercase font-extrabold tracking-widest text-sm mb-3">

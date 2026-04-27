@@ -37,6 +37,91 @@ export default function Products() {
     );
   }
   return (
+    <section
+      className="p-5 bg-background mt-10 lg:max-w-7xl mx-auto"
+      id="products"
+    >
+      <span className="block text-center font-serif text-foreground-light">
+        ¿Qué hay de nuevo?
+      </span>
+      <h2 className="text-center pt-5">Nuestros productos</h2>
+      <hr className="border-0 h-0.5 w-36 mx-auto bg-foreground-light"></hr>
+      {/* products */}
+      <div className="mt-15 grid gap-5 gap-y-15 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {products.map((product) => (
+          <div key={product.id} className="group cursor-pointer">
+            <div className="w-full h-72 max-h-72 overflow-hidden">
+              <img
+                src={product.image_url}
+                alt={product.name}
+                className="w-full h-72 object-cover"
+              />
+              {/* carrito hover xd */}
+              <div className="bg-foreground-light text-white text-lg py-4 uppercase flex items-center translate-y-0 gap-2 justify-center group-hover:-translate-y-full transition-transform duration-300">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1.5rem"
+                  height="1.5rem"
+                  viewBox="0 0 24 24"
+                >
+                  <g fill="none">
+                    <path d="M4 8h16v14H4z" />
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="square"
+                      strokeWidth="2"
+                      d="M15.5 11V5.5a3.5 3.5 0 1 0-7 0V11M4 8h16v14H4z"
+                    />
+                  </g>
+                </svg>
+                Agregar al carrito
+              </div>
+            </div>
+            <div className="mt-3">
+              <h3 className="mb-1">{product.name}</h3>
+              {/* RATE */}
+              <div className="flex items-center">
+                {Array.from({ length: 5 }).map((_, index) => {
+                  const fillPercentage =
+                    Math.max(0, Math.min(1, product.rate - index)) * 100;
+                  return (
+                    <div key={index} className="relative w-5 h-5">
+                      <svg
+                        className="absolute top-0 left-0 w-5 h-5 text-foreground-light opacity-30"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                      <svg
+                        className="absolute top-0 left-0 w-5 h-5 text-foreground-light"
+                        style={{
+                          clipPath: `inset(0 ${100 - fillPercentage}% 0 0)`,
+                        }}
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="text-foreground-light text-xl font-semibold">
+                S/ {product.price}
+              </p>
+              {/* {product.stock > 0 ? (
+                <button>Pedir</button>
+              ) : (
+                <button disabled>Agotado</button>
+              )} */}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+  return (
     <section className="p-5 bg-background" id="products">
       {/* <div className="grid grid-cols-4 gap-3 max-w-7xl mx-auto"> */}
       <h2 className="text-foreground text-center my-10">

@@ -7,4 +7,5 @@ export interface IProductCoffee {
   category: string;
   image_url: string;
   available: number;
+  rate: number;
 }

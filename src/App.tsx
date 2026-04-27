@@ -3,10 +3,12 @@ import MainFooter from "./common/MainFooter";
 import MainHeader from "./common/MainHeader";
 import Historia from "./home/Historia";
 import MainBanner from "./home/MainBanner";
+import More from "./home/More";
 // import Nosotros from "./home/Nosotros";
 import Noticias from "./home/Noticias";
 import NuestraEmpresa from "./home/NuestraEmpresa";
 import Products from "./home/Products";
+import Promotions from "./home/Promotions";
 // import type { IProductCoffee } from "./types/product";
 
 const App = () => {
@@ -36,11 +38,13 @@ const App = () => {
     <>
       <MainHeader />
       <MainBanner />
+      <Promotions />
       <Products />
       {/* <Nosotros /> */}
       <Noticias />
-      <Historia />
-      <NuestraEmpresa />
+      {/* <Historia /> */}
+      {/* <NuestraEmpresa /> */}
+      <More />
       <MainFooter />
     </>
   );
