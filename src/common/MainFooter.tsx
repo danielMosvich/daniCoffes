@@ -54,10 +54,10 @@ const MainFooter = () => {
             </h3>
             <div className="flex flex-col gap-6">
               {[
-                { title: "EXPANDE TU MENTE, CAMBIA TODO", date: "14.02.2017" },
-                { title: "LUGARES PARA PERDERSE", date: "14.02.2017" },
-                { title: "LEWIS HOWES", date: "14.02.2017" },
-                { title: "ELEVA TUS EXPECTATIVAS", date: "14.02.2017" },
+                { title: "EL MEJOR FRAPPE", date: "14.02.26" },
+                { title: "CAFE DE LA SELVA", date: "14.02.26" },
+                { title: "QUE LECHE ELEGIR", date: "14.02.26" },
+                { title: "TENDENCIAS 2026", date: "14.02.26" },
               ].map((post, idx) => (
                 <div key={idx} className="group cursor-pointer">
                   <h4 className="text-white text-sm font-bold uppercase tracking-wider mb-1 group-hover:text-foreground-light transition-colors">
@@ -234,7 +234,16 @@ const MainFooter = () => {
             </a>
           </div>
 
-          <p>&copy; 2026 Todos los derechos reservados</p>
+          <div>
+            <p>&copy; 2026 Todos los derechos reservados</p>
+            <a
+              href="https://github.com/danielMosvich"
+              target="_blank"
+              className="block animate-float -rotate-15 text-center text-lg  text-foreground-light"
+            >
+              danielmosvich ❤️
+            </a>
+          </div>
         </div>
       </div>
 
