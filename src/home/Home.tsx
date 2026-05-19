@@ -1,5 +1,3 @@
-import MainFooter from "../common/MainFooter";
-import MainHeader from "../common/MainHeader";
 import MainBanner from "./MainBanner";
 import More from "./More";
 import Noticias from "./Noticias";
