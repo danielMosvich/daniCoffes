@@ -18,10 +18,10 @@ const MainHeader = () => {
           <div className="hidden lg:flex items-center gap-10">
             <ul className="flex gap-10 font-semibold text-lg uppercase justify-between w-full">
               <li>
-                <a href="#">Inicio</a>
+                <a href="/">Inicio</a>
               </li>
               <li>
-                <a href="#products">Menu</a>
+                <a href="/menu">Menu</a>
               </li>
               <li>
                 <a href="#news">Nuevo producto</a>

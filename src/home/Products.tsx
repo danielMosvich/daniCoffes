@@ -1,26 +1,13 @@
-import { useEffect, useState } from "react";
-import type { IProductCoffee } from "../types/product";
-import { getProducts } from "../services/productService";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
+// import "swiper/css";
+// import "swiper/css/pagination";
+import { CONFIG } from "../config";
+import { useProducts } from "../pages/productos/useProducts";
 
 // import "./styles.css";
 export default function Products() {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [products, setProducts] = useState<IProductCoffee[]>([]);
+  const { data, isLoading, error } = useProducts({ limit: 20 });
 
-  useEffect(() => {
-    const loadProducts = async () => {
-      const products = await getProducts();
-      setProducts(products);
-      setLoading(false);
-    };
-    loadProducts();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <section className="p-5 bg-background">
         <h2 className="text-foreground text-center my-10">
@@ -36,6 +23,18 @@ export default function Products() {
       </section>
     );
   }
+  if (error) {
+    return (
+      <section className="p-5 bg-background">
+        <h2 className="text-foreground text-center my-10">
+          Descubre los nuevos productos
+        </h2>
+        <div className="max-w-7xl mx-auto flex flex-col items-center justify-center min-h-[650px]">
+          <p className="text-xl text-red-500">Error al obtener los productos</p>
+        </div>
+      </section>
+    );
+  }
   return (
     <section
       className="p-5 bg-background mt-10 lg:max-w-7xl mx-auto"
@@ -47,12 +46,12 @@ export default function Products() {
       <h2 className="text-center pt-5">Nuestros productos</h2>
       <hr className="border-0 h-0.5 w-36 mx-auto bg-foreground-light"></hr>
       {/* products */}
-      <div className="mt-15 grid gap-5 gap-y-15 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {products.map((product) => (
+      <div className="mt-15 grid gap-5 gap-y-15 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+        {data.map((product) => (
           <div key={product.id} className="group cursor-pointer">
             <div className="w-full h-72 max-h-72 overflow-hidden">
               <img
-                src={product.image_url}
+                src={`${CONFIG.API_URL}/${product.image_path}`}
                 alt={product.name}
                 className="w-full h-72 object-cover"
               />
@@ -80,7 +79,7 @@ export default function Products() {
             <div className="mt-3">
               <h3 className="mb-1">{product.name}</h3>
               {/* RATE */}
-              <div className="flex items-center">
+              {/* <div className="flex items-center">
                 {Array.from({ length: 5 }).map((_, index) => {
                   const fillPercentage =
                     Math.max(0, Math.min(1, product.rate - index)) * 100;
@@ -106,7 +105,7 @@ export default function Products() {
                     </div>
                   );
                 })}
-              </div>
+              </div> */}
               <p className="text-foreground-light text-xl font-semibold">
                 S/ {product.price}
               </p>
@@ -121,82 +120,82 @@ export default function Products() {
       </div>
     </section>
   );
-  return (
-    <section className="p-5 bg-background" id="products">
-      {/* <div className="grid grid-cols-4 gap-3 max-w-7xl mx-auto"> */}
-      <h2 className="text-foreground text-center my-10">
-        Descubre los nuevos productos
-      </h2>
-      <div className="max-w-7xl mx-auto">
-        <Swiper
-          navigation={true}
-          breakpoints={{
-            320: { slidesPerView: 1, spaceBetween: 20 },
-            640: { slidesPerView: 2, spaceBetween: 20 },
-            768: { slidesPerView: 3, spaceBetween: 30 },
-            1024: { slidesPerView: 4, spaceBetween: 40 },
-          }}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Pagination, Navigation]}
-          className="pb-14! pt-5!"
-        >
-          {products.map((product) => (
-            <SwiperSlide key={product.id} className="h-auto">
-              <div className="border border-muted bg-secondary rounded-xl shadow-xl shadow-primary/10 overflow-hidden select-none flex flex-col h-full hover:-translate-y-1 transition-transform duration-300">
-                {product.image_url !== null ? (
-                  <figure className="w-full h-48 sm:h-56 shrink-0 relative">
-                    <img
-                      src={product.image_url}
-                      alt={product.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </figure>
-                ) : (
-                  <div className="w-full h-48 sm:h-56 bg-muted/40 flex items-center justify-center shrink-0">
-                    <p className="text-foreground font-semibold text-center">
-                      Sin imagen
-                    </p>
-                  </div>
-                )}
+  // return (
+  //   <section className="p-5 bg-background" id="products">
+  //     {/* <div className="grid grid-cols-4 gap-3 max-w-7xl mx-auto"> */}
+  //     <h2 className="text-foreground text-center my-10">
+  //       Descubre los nuevos productos
+  //     </h2>
+  //     <div className="max-w-7xl mx-auto">
+  //       <Swiper
+  //         navigation={true}
+  //         breakpoints={{
+  //           320: { slidesPerView: 1, spaceBetween: 20 },
+  //           640: { slidesPerView: 2, spaceBetween: 20 },
+  //           768: { slidesPerView: 3, spaceBetween: 30 },
+  //           1024: { slidesPerView: 4, spaceBetween: 40 },
+  //         }}
+  //         pagination={{
+  //           clickable: true,
+  //         }}
+  //         modules={[Pagination, Navigation]}
+  //         className="pb-14! pt-5!"
+  //       >
+  //         {products.map((product) => (
+  //           <SwiperSlide key={product.id} className="h-auto">
+  //             <div className="border border-muted bg-secondary rounded-xl shadow-xl shadow-primary/10 overflow-hidden select-none flex flex-col h-full hover:-translate-y-1 transition-transform duration-300">
+  //               {product.image_url !== null ? (
+  //                 <figure className="w-full h-48 sm:h-56 shrink-0 relative">
+  //                   <img
+  //                     src={product.image_url}
+  //                     alt={product.name}
+  //                     className="w-full h-full object-cover"
+  //                   />
+  //                 </figure>
+  //               ) : (
+  //                 <div className="w-full h-48 sm:h-56 bg-muted/40 flex items-center justify-center shrink-0">
+  //                   <p className="text-foreground font-semibold text-center">
+  //                     Sin imagen
+  //                   </p>
+  //                 </div>
+  //               )}
 
-                <div className="p-5 flex flex-col grow bg-white/10">
-                  <h3 className="mt-1 truncate font-bold text-xl text-foreground">
-                    {product.name}
-                  </h3>
-                  <p className="text-foreground-light font-medium line-clamp-2 mb-4 grow text-sm">
-                    {product.description}
-                  </p>
-                  <div className="flex justify-between items-center mt-auto pt-4 border-t border-muted/30">
-                    <p className="font-black text-2xl text-foreground">
-                      S/ {product.price}
-                    </p>
-                    {product.stock > 0 ? (
-                      <button className="bg-primary text-white py-2 px-5 rounded-full ring-2 ring-transparent hover:ring-muted hover:scale-105 transition-all cursor-pointer font-bold shadow-md">
-                        Pedir
-                      </button>
-                    ) : (
-                      <button
-                        disabled
-                        className="bg-black/40 text-white/70 py-2 px-5 rounded-full cursor-not-allowed font-bold"
-                      >
-                        Agotado
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-      {/* </div> */}
-      <div className="flex justify-center my-14">
-        <button className="bg-primary text-white p-2 rounded-full px-4 hover:scale-105 transition cursor-pointer text-lg shadow-primary/50 shadow-md">
-          Ver más productos
-        </button>
-      </div>
-    </section>
-  );
+  //               <div className="p-5 flex flex-col grow bg-white/10">
+  //                 <h3 className="mt-1 truncate font-bold text-xl text-foreground">
+  //                   {product.name}
+  //                 </h3>
+  //                 <p className="text-foreground-light font-medium line-clamp-2 mb-4 grow text-sm">
+  //                   {product.description}
+  //                 </p>
+  //                 <div className="flex justify-between items-center mt-auto pt-4 border-t border-muted/30">
+  //                   <p className="font-black text-2xl text-foreground">
+  //                     S/ {product.price}
+  //                   </p>
+  //                   {product.stock > 0 ? (
+  //                     <button className="bg-primary text-white py-2 px-5 rounded-full ring-2 ring-transparent hover:ring-muted hover:scale-105 transition-all cursor-pointer font-bold shadow-md">
+  //                       Pedir
+  //                     </button>
+  //                   ) : (
+  //                     <button
+  //                       disabled
+  //                       className="bg-black/40 text-white/70 py-2 px-5 rounded-full cursor-not-allowed font-bold"
+  //                     >
+  //                       Agotado
+  //                     </button>
+  //                   )}
+  //                 </div>
+  //               </div>
+  //             </div>
+  //           </SwiperSlide>
+  //         ))}
+  //       </Swiper>
+  //     </div>
+  //     {/* </div> */}
+  //     <div className="flex justify-center my-14">
+  //       <button className="bg-primary text-white p-2 rounded-full px-4 hover:scale-105 transition cursor-pointer text-lg shadow-primary/50 shadow-md">
+  //         Ver más productos
+  //       </button>
+  //     </div>
+  //   </section>
+  // );
 }
