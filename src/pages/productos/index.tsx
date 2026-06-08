@@ -3,7 +3,6 @@ import { CONFIG } from "../../config";
 import { useProducts } from "./useProducts";
 import { ShoppingCartIcon } from "lucide-react";
 import { addCart } from "../../utils/Functions";
-// import { ShoppingCartIcon } from "lucide-react";
 
 const Productos = ({ category_id = null }: { category_id?: number | null }) => {
   const { data, isLoading, error, hasProducts } = useProducts({ category_id });

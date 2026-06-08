@@ -1,9 +1,9 @@
 // import "swiper/css";
 // import "swiper/css/pagination";
+import { Link } from "react-router";
 import { CONFIG } from "../config";
 import { useProducts } from "../pages/productos/useProducts";
-
-// import "./styles.css";
+import { addCart } from "../utils/Functions";
 export default function Products() {
   const { data, isLoading, error } = useProducts({ limit: 20 });
 
@@ -50,13 +50,22 @@ export default function Products() {
         {data.map((product) => (
           <div key={product.id} className="group cursor-pointer">
             <div className="w-full h-72 max-h-72 overflow-hidden">
-              <img
-                src={`${CONFIG.API_URL}/${product.image_path}`}
-                alt={product.name}
-                className="w-full h-72 object-cover"
-              />
+              <Link to={`/productodetalle/${product.id}`}>
+                <figure>
+                  <img
+                    src={`${CONFIG.API_URL}/${product.image_path}`}
+                    alt={product.name}
+                    className="w-full h-72 object-cover"
+                  />
+                </figure>
+              </Link>
               {/* carrito hover xd */}
-              <div className="bg-foreground-light text-white text-lg py-4 uppercase flex items-center translate-y-0 gap-2 justify-center group-hover:-translate-y-full transition-transform duration-300">
+              <button
+                onClick={() =>
+                  addCart(product.id, product.name, Number(product.price), 1)
+                }
+                className="bg-foreground-light text-white text-lg py-4 uppercase flex items-center translate-y-0 gap-2 justify-center group-hover:-translate-y-full transition-transform duration-300 w-full"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="1.5rem"
@@ -74,7 +83,7 @@ export default function Products() {
                   </g>
                 </svg>
                 Agregar al carrito
-              </div>
+              </button>
             </div>
             <div className="mt-3">
               <h3 className="mb-1">{product.name}</h3>
