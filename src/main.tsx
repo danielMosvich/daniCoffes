@@ -35,11 +35,32 @@ const router = createBrowserRouter([
           };
         },
       },
+      {
+        path: "*",
+        lazy: async () => {
+          return {
+            Component: (await import("./pages/Pagina404.tsx")).default,
+          };
+        },
+      },
+      {
+        path: "productodetalle/:idproducto",
+        lazy: async () => {
+          return {
+            Component: (await import("./pages/productoDetail/index.tsx"))
+              .default,
+          };
+        },
+      },
+      {
+        path: "cart",
+        lazy: async () => {
+          return {
+            Component: (await import("./pages/cart/index.tsx")).default,
+          };
+        },
+      },
     ],
-  },
-  {
-    path: "*",
-    element: <h1>404 Not Found</h1>,
   },
 ]);
 createRoot(document.getElementById("root")!).render(

@@ -1,4 +1,10 @@
+import { ShoppingCartIcon } from "lucide-react";
+import { useCart } from "../pages/cart/useCarrito";
+import { useNavigate } from "react-router";
+
 const MainHeader = () => {
+  const { totalItems } = useCart();
+  const navigate = useNavigate();
   return (
     <header className="bg-background/80 backdrop-blur-xl fixed top-0 w-full z-50">
       <div className="px-3 py-2">
@@ -34,21 +40,18 @@ const MainHeader = () => {
             <div className="w-0.5 h-1/2 bg-muted"></div>
             {/* icons */}
             <div className="flex gap-4">
-              <button>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="1.5rem"
-                  height="1.5rem"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="square"
-                    strokeWidth="2"
-                    d="M1 2h3l3 11l-1 4h15M7 21a1 1 0 1 1-2 0a1 1 0 0 1 2 0Zm14 0a1 1 0 1 1-2 0a1 1 0 0 1 2 0ZM7 13h12l3-9H4.545z"
-                  />
-                </svg>
+              <button
+                onClick={() => {
+                  navigate("/cart");
+                }}
+                className="relative cursor-pointer"
+              >
+                <ShoppingCartIcon />
+                {totalItems > 0 && (
+                  <span className="absolute -bottom-5 -right-3 bg-primary text-white w-8 min-w-8 h-8 min-h-8 max-w-8 max-h-8 flex justify-center items-center rounded-full text-sm">
+                    {totalItems}
+                  </span>
+                )}
               </button>
               <button>
                 <svg

@@ -1,67 +1,68 @@
-@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap");
 
 @import "tailwindcss";
 
 @theme {
-  /* --font-sans: "Poppins", sans-serif; */
-  --font-sans: "Oswald", sans-serif;
-  --font-secondary: "Open Sans", sans-serif;
-  --font-serif: "Merriweather", serif;
-  --color-primary: #7c4c35; /* Principal: Botones CTA, iconos, énfasis */
-  --color-accent: #312a26; /* Acento: Etiquetas, badges, resaltar sin competir */
-  --color-background: #ffffff; /* Fondo principal: Lienzo general de la página */
-  --color-secondary: #daae86; /* Secundario: Fondos de footer/header (alto contraste) */
+    /* --font-sans: "Poppins", sans-serif; */
+    --font-sans: "Oswald", sans-serif;
+    --font-secondary: "Open Sans", sans-serif;
+    --font-serif: "Merriweather", serif;
+    --color-primary: #7c4c35; /* Principal: Botones CTA, iconos, énfasis */
+    --color-accent: #312a26; /* Acento: Etiquetas, badges, resaltar sin competir */
+    --color-background: #ffffff; /* Fondo principal: Lienzo general de la página */
+    --color-background-secondary: #f2f0ea;
+    --color-secondary: #daae86; /* Secundario: Fondos de footer/header (alto contraste) */
+    --color-tertiary: #30271c;
 
-  --color-foreground: #30271c; /* Texto principal: Párrafos y títulos */
-  --color-foreground-light: #d3a57a; /* Texto principal: Párrafos y títulos */
-  --color-muted: #7f7f7f; /* Apagado: Bordes, texto secundario, placeholders */
+    --color-foreground: #30271c; /* Texto principal: Párrafos y títulos */
+    --color-foreground-light: #d3a57a; /* Texto principal: Párrafos y títulos */
+    --color-muted: #7f7f7f; /* Apagado: Bordes, texto secundario, placeholders */
 
-  /* Animación personalizada: Flotar y Girar */
-  --animate-float: float 5s ease-in-out infinite;
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px) rotate(12deg);
+    /* Animación personalizada: Flotar y Girar */
+    --animate-float: float 5s ease-in-out infinite;
+    @keyframes float {
+        0%,
+        100% {
+            transform: translateY(0px) rotate(12deg);
+        }
+        50% {
+            transform: translateY(-15px) rotate(16deg);
+        }
     }
-    50% {
-      transform: translateY(-15px) rotate(16deg);
-    }
-  }
 }
 
 @layer base {
-  .example{
-    color:#7c4c35;/*primary*/
-    color:#ffb703;/*accent*/
-    color:#ffffff;/*background*/
-    color:#7c4c35;/*secondary*/
-    color: #30271c;/*foreground*/
-    color: #7f7f7f;/*muted*/
-  }
-  html{
-    scroll-behavior: smooth;
-  }
-  body {
-    
-    @apply bg-background text-foreground antialiased;
-    overflow-x: hidden;
-  }
-  h1 {
-    @apply text-6xl font-bold;
-  }
-  h2 {
-    @apply text-5xl uppercase mb-6 font-black;
-  }
-  h3 {
-    @apply text-2xl mb-3 font-bold;
-  }
-  p {
-    @apply mb-5;
-  }
-  p:last-child {
-    @apply mb-0;
-  }
+    .example {
+        color: #7c4c35; /*primary*/
+        color: #ffb703; /*accent*/
+        color: #ffffff; /*background*/
+        color: #7c4c35; /*secondary*/
+        color: #30271c; /*foreground*/
+        color: #7f7f7f; /*muted*/
+    }
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        @apply bg-background text-foreground antialiased;
+        overflow-x: hidden;
+    }
+    h1 {
+        @apply text-6xl font-bold;
+    }
+    h2 {
+        @apply text-5xl uppercase mb-6 font-black;
+    }
+    h3 {
+        @apply text-2xl mb-3 font-bold;
+    }
+    p {
+        @apply mb-5;
+    }
+    p:last-child {
+        @apply mb-0;
+    }
 }
-

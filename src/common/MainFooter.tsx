@@ -1,6 +1,6 @@
 const MainFooter = () => {
   return (
-    <footer className="relative bg-[#111111] mt-20" id="contact">
+    <footer className="relative bg-[#111111]" id="contact">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img
@@ -10,7 +10,7 @@ const MainFooter = () => {
         />
       </div>
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="relative z-10 max-w-350 mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-16">
           {/* HORARIO DE APERTURA */}
           <div>

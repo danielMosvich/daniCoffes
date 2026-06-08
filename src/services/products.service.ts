@@ -22,3 +22,20 @@ export const fetchProducts = async (
   }
   return (await response.json()) as IProduct[];
 };
+
+export const fetchProductDetail = async (
+  idproduct?: string | null,
+  signal?: AbortSignal,
+): Promise<IProduct[]> => {
+  const url = new URL(API_URL);
+  if (idproduct) {
+    url.searchParams.set("id", idproduct.toString());
+  }
+  const response = await fetch(url.toString(), { signal });
+  if (!response.ok) {
+    throw new Error(
+      `Error al obtener los producto: ${response.status} ${response.statusText}`,
+    );
+  }
+  return (await response.json()) as IProduct[];
+};

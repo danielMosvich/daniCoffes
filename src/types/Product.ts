@@ -5,8 +5,7 @@ export interface IProduct {
   price: string;
   price_discount: number;
   stock: number;
-  category: number;
+  category_id: number;
   image_path: string;
   available: number;
-  // rate: number;
 }

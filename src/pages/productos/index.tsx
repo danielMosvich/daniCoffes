@@ -1,15 +1,19 @@
+import { Link } from "react-router";
 import { CONFIG } from "../../config";
 import { useProducts } from "./useProducts";
+import { ShoppingCartIcon } from "lucide-react";
+import { addCart } from "../../utils/Functions";
+// import { ShoppingCartIcon } from "lucide-react";
 
 const Productos = ({ category_id = null }: { category_id?: number | null }) => {
   const { data, isLoading, error, hasProducts } = useProducts({ category_id });
   if (isLoading) {
     return (
-      <section className="p-5 bg-background">
+      <section className="p-5 bg-background-secondary">
         <h2 className="text-foreground text-center my-10">
           Descubre los nuevos productos
         </h2>
-        <div className="max-w-7xl mx-auto flex flex-col items-center justify-center min-h-[650px]">
+        <div className="max-w-7xl mx-auto flex flex-col items-center justify-center min-h-162.5">
           {/* spiner xd */}
           <div className="w-16 h-16 border-4 border-muted/30 border-t-primary rounded-full animate-spin mb-6 shadow-sm"></div>
           <p className="text-xl text-foreground/80 font-bold tracking-widest animate-pulse">
@@ -21,11 +25,11 @@ const Productos = ({ category_id = null }: { category_id?: number | null }) => {
   }
   if (error) {
     return (
-      <section className="p-5 bg-background">
+      <section className="p-5 bg-background-secondary">
         <h2 className="text-foreground text-center my-10">
           Descubre los nuevos productos
         </h2>
-        <div className="max-w-7xl mx-auto flex flex-col items-center justify-center min-h-[650px]">
+        <div className="max-w-7xl mx-auto flex flex-col items-center justify-center min-h-162.5">
           <p className="text-xl text-red-500">Error al obtener los productos</p>
         </div>
       </section>
@@ -43,15 +47,17 @@ const Productos = ({ category_id = null }: { category_id?: number | null }) => {
               Productos
             </h3>
             <div className="grid gap-10 grid-cols-1 pt-10 w-full">
-              {data.map((product) => (
-                <div key={product.id} className="flex gap-2 w-full">
-                  <div>
-                    <img
-                      src={`${CONFIG.API_URL}/${product.image_path}`}
-                      alt={product.name}
-                      className="w-20 h-20 min-w-20 min-h-20 rounded-xl object-cover"
-                    />
-                  </div>
+              {data.map(({ id, description, name, image_path, price }) => (
+                <div key={id} className="flex items-center gap-2 w-full">
+                  <Link key={id} to={`/productodetalle/${id}`}>
+                    <figure>
+                      <img
+                        src={`${CONFIG.API_URL}/${image_path}`}
+                        alt={name}
+                        className="w-20 h-20 min-w-20 min-h-20 rounded-xl object-cover"
+                      />
+                    </figure>
+                  </Link>
                   <div className="w-full">
                     <div
                       className="grid items-end"
@@ -60,17 +66,23 @@ const Productos = ({ category_id = null }: { category_id?: number | null }) => {
                       }}
                     >
                       <p className="line-clamp-1 w-fit text-2xl font-bold mb-0 uppercase">
-                        {product.name}
+                        {name}
                       </p>
                       <div className="h-full border-b border-muted/50"></div>
-                      <p className="font-black text-xl">S/ {product.price}</p>
+                      <p className="font-black text-xl">S/ {price}</p>
                     </div>
                     <div>
                       <p className="line-clamp-1 text-secondary font-light">
-                        {product.description}
+                        {description}
                       </p>
                     </div>
                   </div>
+                  <button
+                    onClick={() => addCart(id, name, Number(price), 1)}
+                    className="bg-secondary hover:bg-tertiary transition-colors cursor-pointer text-white px-6 py-4 h-fit ml-5"
+                  >
+                    <ShoppingCartIcon />
+                  </button>
                 </div>
               ))}
             </div>

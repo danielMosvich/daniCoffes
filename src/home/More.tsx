@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function More() {
   return (
-    <section>
+    <section className="pb-20">
       <div className="max-w-7xl grid lg:grid-cols-2 grid-cols-1 mx-auto gap-10 lg:py-20 py-10 px-10 lg:px-0">
         <div className="w-full relative group cursor-pointer">
           <figure className="w-full h-96 group-hover:brightness-90 transition">
