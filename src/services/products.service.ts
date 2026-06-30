@@ -1,6 +1,6 @@
 import { CONFIG } from "../config";
 import type { IProduct } from "../types/Product";
-const API_URL = `${CONFIG.API_URL}/${CONFIG.ENDPOINTS.PRODUCTOS}`;
+const API_URL = `${CONFIG.API_URL}${CONFIG.ENDPOINTS.PRODUCTOS}`;
 
 export const fetchProducts = async (
   idcategoria?: number | null,

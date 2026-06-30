@@ -1,6 +1,6 @@
 import { CONFIG } from "../config";
 import type { ICategory } from "../types/Categories";
-const API_URL = `${CONFIG.API_URL}/${CONFIG.ENDPOINTS.CATEGORIES}`;
+const API_URL = `${CONFIG.API_URL}${CONFIG.ENDPOINTS.CATEGORIES}`;
 
 export const fetchCategories = async (
   signal?: AbortSignal,

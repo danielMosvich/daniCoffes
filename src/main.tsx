@@ -5,6 +5,9 @@ import App from "./App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { AuthProvider } from "./context/AuthProvider.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import PublicRoute from "./components/PublicRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -60,14 +63,51 @@ const router = createBrowserRouter([
           };
         },
       },
+      {
+        element: <PublicRoute />,
+        children: [
+          {
+            path: "login",
+            lazy: async () => {
+              return {
+                Component: (await import("./pages/login/index.tsx")).default,
+              };
+            },
+          },
+        ],
+      },
+      {
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "profile",
+            lazy: async () => {
+              return {
+                Component: (await import("./pages/profile/index.tsx")).default,
+              };
+            },
+          },
+          {
+            path: "reservations",
+            lazy: async () => {
+              return {
+                Component: (await import("./pages/reservations/index.tsx"))
+                  .default,
+              };
+            },
+          },
+        ],
+      },
     ],
   },
 ]);
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <ReactQueryDevtools />
+      <AuthProvider>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools />
+      </AuthProvider>
     </QueryClientProvider>
   </StrictMode>,
 );

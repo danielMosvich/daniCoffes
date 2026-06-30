@@ -8,3 +8,9 @@ export const tableStyles = {
   tr: "transition-colors hover:bg-neutral-50",
   td: "px-6 py-4 text-sm text-slate-700 whitespace-nowrap text-center",
 };
+export const inputStyles = {
+  input:
+    " w-full p-3 text-tertiary placeholder:text-secondary outline-none focus:ring-2 ring-muted/20 bg-secondary/10",
+  textarea:
+    " w-full p-3 text-tertiary placeholder:text-secondary outline-none focus:ring-2 ring-muted/20 bg-secondary/10",
+};
