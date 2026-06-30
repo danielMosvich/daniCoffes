@@ -78,14 +78,12 @@ const Reservations = () => {
   if (isLoading) {
     return (
       <section className="p-5 bg-background-secondary">
-        <h2 className="text-foreground text-center my-10">
-          Descubre los nuevos productos
-        </h2>
+        <h2 className="text-foreground text-center my-10">Reservas</h2>
         <div className="max-w-7xl mx-auto flex flex-col items-center justify-center min-h-162.5">
           {/* spiner xd */}
           <div className="w-16 h-16 border-4 border-muted/30 border-t-primary rounded-full animate-spin mb-6 shadow-sm"></div>
           <p className="text-xl text-foreground/80 font-bold tracking-widest animate-pulse">
-            PREPARANDO EL CATÁLOGO...
+            CARGANDO...
           </p>
         </div>
       </section>
@@ -94,11 +92,9 @@ const Reservations = () => {
   if (error) {
     return (
       <section className="p-5 bg-background-secondary">
-        <h2 className="text-foreground text-center my-10">
-          Descubre los nuevos productos
-        </h2>
+        <h2 className="text-foreground text-center my-10">Reservas</h2>
         <div className="max-w-7xl mx-auto flex flex-col items-center justify-center min-h-162.5">
-          <p className="text-xl text-red-500">Error al obtener los productos</p>
+          <p className="text-xl text-red-500">Error al obtener las reservas</p>
         </div>
       </section>
     );
