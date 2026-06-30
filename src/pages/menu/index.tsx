@@ -4,7 +4,8 @@ import type { IProduct } from "../../types/Product";
 import Productos from "../productos";
 import { useMenu } from "./useMenu";
 import { CONFIG } from "../../config";
-import { XIcon } from "lucide-react";
+import { MinusIcon, PlusIcon, XIcon } from "lucide-react";
+import { addCart } from "../../utils/Functions";
 
 const Menu = () => {
   const { data, isLoading, error, set_category_select, category_select } =
@@ -23,10 +24,11 @@ const Menu = () => {
   const [currentProduct, setCurrentProduct] =
     useState<IProduct>(initialProduct);
   const [showModal, setShowModal] = useState(false);
-
+  const [quantityCart, setQuantityCart] = useState(1);
   const closeModal = () => {
     setShowModal(false);
     setCurrentProduct(initialProduct);
+    setQuantityCart(1);
   };
   if (isLoading) {
     return (
@@ -146,6 +148,48 @@ const Menu = () => {
                 <p className="mb-0">
                   Stock: <strong>{currentProduct.stock}</strong>
                 </p>
+                <div className="flex flex-col mt-2 gap-2">
+                  <div className="flex items-center gap-2 w-full">
+                    <button
+                      onClick={() =>
+                        setQuantityCart(Math.max(1, quantityCart - 1))
+                      }
+                      className=" bg-secondary text-white p-2 rounded-sm cursor-pointer"
+                    >
+                      <MinusIcon className="size-4" />
+                    </button>
+                    <input
+                      type="number"
+                      placeholder="1"
+                      value={quantityCart}
+                      onFocus={(e) => e.target.select()}
+                      onChange={(e) =>
+                        setQuantityCart(parseInt(e.target.value) || 1)
+                      }
+                      className="w-full text-center ring-2 rounded-sm py-1 ring-muted/30"
+                    />
+                    <button
+                      onClick={() => setQuantityCart(quantityCart + 1)}
+                      className=" bg-secondary text-white p-2 rounded-sm cursor-pointer"
+                    >
+                      <PlusIcon className="size-4" />
+                    </button>
+                  </div>
+                  <button
+                    onClick={() => {
+                      addCart(
+                        currentProduct.id,
+                        currentProduct.name,
+                        Number(currentProduct.price),
+                        quantityCart,
+                      );
+                      closeModal();
+                    }}
+                    className="w-full bg-primary text-white py-2 rounded-md hover:bg-primary/90"
+                  >
+                    Agregar al Carrito
+                  </button>
+                </div>
               </div>
             </div>
           </div>

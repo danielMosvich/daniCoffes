@@ -1,10 +1,14 @@
 import { useParams } from "react-router";
 import { useProductDetail } from "./useProductDetail";
 import { CONFIG } from "../../config";
+import { useState } from "react";
+import { MinusIcon, PlusIcon } from "lucide-react";
+import { addCart } from "../../utils/Functions";
 
 const ProductoDetalle = () => {
   const { idproducto } = useParams<{ idproducto: string }>();
   const { data, isLoading, error, hasProduct } = useProductDetail(idproducto);
+  const [quantity, setQuantity] = useState(1);
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!hasProduct) return <div>No product found</div>;
@@ -38,10 +42,27 @@ const ProductoDetalle = () => {
             <p className="font-light text-lg">{data.description}</p>
             {/*actions*/}
             <div className="flex py-10">
-              <button className="p-4 px-6">-</button>
-              <button className="p-4 px-6 font-black bg-muted/20">1</button>
-              <button className="p-4 px-6">+</button>
-              <button className="p-4 px-10 bg-secondary tracking-widest uppercase text-white font-black hover:bg-tertiary transition-colors">
+              <button
+                className="p-4 px-6 cursor-pointer"
+                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              >
+                <MinusIcon className="size-4" />
+              </button>
+              <button className="p-4 px-6 font-black bg-muted/20">
+                {quantity}
+              </button>
+              <button
+                className="p-4 px-6 cursor-pointer"
+                onClick={() => setQuantity(quantity + 1)}
+              >
+                <PlusIcon className="size-4" />
+              </button>
+              <button
+                onClick={() =>
+                  addCart(data.id, data.name, Number(data.price), quantity)
+                }
+                className="p-4 px-10 bg-secondary tracking-widest uppercase text-white font-black hover:bg-tertiary transition-colors"
+              >
                 Add to Cart
               </button>
             </div>
