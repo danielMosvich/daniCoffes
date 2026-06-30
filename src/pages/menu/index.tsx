@@ -1,10 +1,33 @@
 // import { useProducts } from "../productos/useProducts";
+import { useState } from "react";
+import type { IProduct } from "../../types/Product";
 import Productos from "../productos";
 import { useMenu } from "./useMenu";
+import { CONFIG } from "../../config";
+import { XIcon } from "lucide-react";
 
 const Menu = () => {
   const { data, isLoading, error, set_category_select, category_select } =
     useMenu();
+  const initialProduct = {
+    id: 0,
+    name: "",
+    description: "",
+    price: 0,
+    price_discount: 0,
+    stock: 0,
+    category_id: 0,
+    image_path: "",
+    available: 0,
+  };
+  const [currentProduct, setCurrentProduct] =
+    useState<IProduct>(initialProduct);
+  const [showModal, setShowModal] = useState(false);
+
+  const closeModal = () => {
+    setShowModal(false);
+    setCurrentProduct(initialProduct);
+  };
   if (isLoading) {
     return (
       <section className="p-5 bg-background-secondary">
@@ -72,9 +95,62 @@ const Menu = () => {
         </div>
         {/* PRODUCTS */}
         <div className="lg:w-3/4 p-4 lg:p-2">
-          <Productos category_id={category_select} />
+          <Productos
+            category_id={category_select}
+            setShowModal={setShowModal}
+            setCurrentProduct={setCurrentProduct}
+          />
         </div>
       </div>
+      {/* MODAL */}
+      {showModal && currentProduct && (
+        <div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
+          onClick={() => closeModal()}
+        >
+          <div
+            className="bg-white p-6 rounded-lg max-w-xl w-full relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => closeModal()}
+              className="absolute right-2 top-2 cursor-pointer"
+            >
+              <XIcon className="size-6" />
+            </button>
+            <h4 className="text-2xl font-bold mb-4">Detalles del Producto</h4>
+            <div className="flex gap-5">
+              <div className="w-2/5 bg-muted rounded-lg">
+                <img
+                  src={`${CONFIG.API_URL}/${currentProduct.image_path}`}
+                  alt={currentProduct.name}
+                  className="rounded-lg h-full w-full object-cover aspect-square"
+                />
+              </div>
+              <div className="w-3/5">
+                <h3>{currentProduct.name}</h3>
+                <p className="mb-0">
+                  Description: <strong>{currentProduct.description}</strong>
+                </p>
+                <p className="mb-0">
+                  Precio: <strong>S/ {currentProduct.price}</strong>
+                </p>
+                <p className="mb-0">
+                  Descuento: S/{" "}
+                  <strong>
+                    {currentProduct.price_discount
+                      ? currentProduct.price_discount
+                      : 0}
+                  </strong>
+                </p>
+                <p className="mb-0">
+                  Stock: <strong>{currentProduct.stock}</strong>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

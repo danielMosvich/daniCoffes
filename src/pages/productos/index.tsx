@@ -1,10 +1,19 @@
 import { Link } from "react-router";
 import { CONFIG } from "../../config";
 import { useProducts } from "./useProducts";
-import { ShoppingCartIcon } from "lucide-react";
+import { EyeIcon, ShoppingCartIcon } from "lucide-react";
 import { addCart } from "../../utils/Functions";
+import type { IProduct } from "../../types/Product";
 
-const Productos = ({ category_id = null }: { category_id?: number | null }) => {
+const Productos = ({
+  category_id = null,
+  setShowModal,
+  setCurrentProduct,
+}: {
+  category_id?: number | null;
+  setShowModal: (show: boolean) => void;
+  setCurrentProduct: (product: IProduct) => void;
+}) => {
   const { data, isLoading, error, hasProducts } = useProducts({ category_id });
   if (isLoading) {
     return (
@@ -46,44 +55,76 @@ const Productos = ({ category_id = null }: { category_id?: number | null }) => {
               Productos
             </h3>
             <div className="grid gap-10 grid-cols-1 pt-10 w-full">
-              {data.map(({ id, description, name, image_path, price }) => (
-                <div key={id} className="flex items-center gap-2 w-full">
-                  <Link key={id} to={`/productodetalle/${id}`}>
-                    <figure>
-                      <img
-                        src={`${CONFIG.API_URL}/${image_path}`}
-                        alt={name}
-                        className="w-20 h-20 min-w-20 min-h-20 rounded-xl object-cover"
-                      />
-                    </figure>
-                  </Link>
-                  <div className="w-full">
-                    <div
-                      className="grid items-end"
-                      style={{
-                        gridTemplateColumns: "auto 1fr auto",
+              {data.map(
+                ({
+                  id,
+                  description,
+                  name,
+                  image_path,
+                  price,
+                  price_discount,
+                  stock,
+                  category_id,
+                  available,
+                }) => (
+                  <div key={id} className="flex items-center gap-2 w-full">
+                    <Link key={id} to={`/productodetalle/${id}`}>
+                      <figure>
+                        <img
+                          src={`${CONFIG.API_URL}/${image_path}`}
+                          alt={name}
+                          className="w-20 h-20 min-w-20 min-h-20 rounded-xl object-cover"
+                        />
+                      </figure>
+                    </Link>
+                    <div className="w-full">
+                      <div
+                        className="grid items-end"
+                        style={{
+                          gridTemplateColumns: "auto 1fr auto",
+                        }}
+                      >
+                        <p className="line-clamp-1 w-fit text-2xl font-bold mb-0 uppercase">
+                          {name}
+                        </p>
+                        <div className="h-full border-b border-muted/50"></div>
+                        <p className="font-black text-xl">S/ {price}</p>
+                      </div>
+                      <div>
+                        <p className="line-clamp-1 text-secondary font-light">
+                          {description}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      // onClick={() => addCart(id, name, Number(price), 1)}
+                      onClick={() => {
+                        setCurrentProduct({
+                          id: id,
+                          name: name,
+                          description: description,
+                          image_path: image_path,
+                          price: Number(price),
+                          price_discount: Number(price_discount),
+                          stock: Number(stock),
+                          category_id: Number(category_id),
+                          available: Number(available),
+                        });
+                        setShowModal(true);
                       }}
+                      className="bg-tertiary hover:bg-tertiary/80 transition-colors cursor-pointer text-white px-6 py-4 h-fit ml-5"
                     >
-                      <p className="line-clamp-1 w-fit text-2xl font-bold mb-0 uppercase">
-                        {name}
-                      </p>
-                      <div className="h-full border-b border-muted/50"></div>
-                      <p className="font-black text-xl">S/ {price}</p>
-                    </div>
-                    <div>
-                      <p className="line-clamp-1 text-secondary font-light">
-                        {description}
-                      </p>
-                    </div>
+                      <EyeIcon />
+                    </button>
+                    <button
+                      onClick={() => addCart(id, name, Number(price), 1)}
+                      className="bg-secondary hover:bg-tertiary transition-colors cursor-pointer text-white px-6 py-4 h-fit ml-1"
+                    >
+                      <ShoppingCartIcon />
+                    </button>
                   </div>
-                  <button
-                    onClick={() => addCart(id, name, Number(price), 1)}
-                    className="bg-secondary hover:bg-tertiary transition-colors cursor-pointer text-white px-6 py-4 h-fit ml-5"
-                  >
-                    <ShoppingCartIcon />
-                  </button>
-                </div>
-              ))}
+                ),
+              )}
             </div>
           </div>
         )}
