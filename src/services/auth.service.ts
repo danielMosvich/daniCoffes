@@ -2,7 +2,6 @@ import { CONFIG } from "../config/index";
 export const loginService = async (email: string, password: string) => {
   const API_URL = `${CONFIG.API_URL}${CONFIG.ENDPOINTS.LOGIN}`;
   const formData = new FormData();
-  console.log(API_URL);
   formData.append("email", email);
   formData.append("password", password);
 

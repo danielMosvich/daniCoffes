@@ -26,10 +26,24 @@ const NAV_ITEMS = [
     private: false,
   },
   {
+    id: "estadisticas",
+    etiqueta: "Estadísticas",
+    titulo: "Estadísticas",
+    ruta: "/estadisticas",
+    private: false,
+  },
+  {
     id: "reservations",
     etiqueta: "Reservas",
     titulo: "Gestionar Reservas",
     ruta: "/reservations",
+    private: true,
+  },
+  {
+    id: "marcas",
+    etiqueta: "Marcas",
+    titulo: "Marcas que manejamos",
+    ruta: "/brands",
     private: true,
   },
 ];

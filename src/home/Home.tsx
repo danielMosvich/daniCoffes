@@ -3,6 +3,7 @@ import More from "./More";
 import Noticias from "./Noticias";
 import Products from "./Products";
 import Promotions from "./Promotions";
+import Location from "./Location";
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
       <Promotions />
       <Products />
       <Noticias />
+      <Location />
       <More />
       {/* <MainFooter /> */}
     </>

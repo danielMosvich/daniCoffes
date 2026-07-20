@@ -40,6 +40,7 @@ const Profile = () => {
             Editar
           </button>
         </div>
+
       </div>
     </>
   );
