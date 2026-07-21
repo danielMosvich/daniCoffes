@@ -7,6 +7,7 @@ import {
   Title
 } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import { CONFIG } from '../config';
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
@@ -22,7 +23,7 @@ export const ChartCategorias = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_NODE_URL}/api/estadisticas/categorias`);
+        const response = await fetch(`${CONFIG.API_NODE_URL}/api/estadisticas/categorias`);
         if (!response.ok) {
           throw new Error('Error al obtener datos');
         }
