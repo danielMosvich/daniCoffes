@@ -44,7 +44,7 @@ const NAV_ITEMS = [
     etiqueta: "Marcas",
     titulo: "Marcas que manejamos",
     ruta: "/brands",
-    private: true,
+    private: false,
   },
 ];
 
