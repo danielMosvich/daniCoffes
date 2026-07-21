@@ -1,7 +1,7 @@
 import { APIProvider, Map,Marker } from '@vis.gl/react-google-maps';
 
 const Location = () => {
-  const API_KEY = "AIzaSyDMfjH_5sMmopmUzJl4OIO5y4uFvDbWkLo";
+  const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "";
   const position = { lat: -12.063645224191141, lng: -76.95069313521265 };
   return (
     <section id="mapa" className="py-16 bg-background-secondary">
